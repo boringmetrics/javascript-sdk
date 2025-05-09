@@ -1,0 +1,26 @@
+{
+  "name": "@boringmetrics/core",
+  "version": "0.1.0",
+  "description": "Core package for Boring Metrics SDK",
+  "main": "dist/index.js",
+  "module": "dist/index.esm.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "ts-node ./scripts/build.mjs",
+    "build:types": "tsc --emitDeclarationOnly --declaration",
+    "clean": "rimraf dist && rimraf node_modules"
+  },
+  "author": "Aymeric Chauvin <contact@halftheopposite.dev>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "@types/node": "^22.7.4",
+    "esbuild": "^0.23.1",
+    "rimraf": "^3.0.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  }
+}

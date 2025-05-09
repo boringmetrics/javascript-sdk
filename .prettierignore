@@ -1,0 +1,28 @@
+# Build outputs
+dist/
+build/
+lib/
+coverage/
+
+# Dependencies
+node_modules/
+.pnp/
+.pnp.js
+.yarn/
+
+# Generated files
+*.min.js
+*.bundle.js
+*.generated.*
+
+# Logs
+logs/
+*.log
+
+# Cache
+.cache/
+.parcel-cache/
+
+# Misc
+.DS_Store
+.env*
