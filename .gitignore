@@ -21,12 +21,13 @@ yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
 
-# Environment variables
+# Environment variables and tokens
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
+.npmrc
 
 # Editor directories and files
 .idea/

@@ -11,13 +11,31 @@
   "scripts": {
     "build": "ts-node ./scripts/build.mjs",
     "build:types": "tsc --emitDeclarationOnly --declaration",
-    "clean": "rimraf dist && rimraf node_modules"
+    "clean": "rimraf dist && rimraf node_modules",
+    "prepublishOnly": "yarn build"
   },
   "author": "Aymeric Chauvin <contact@halftheopposite.dev>",
   "license": "MIT",
-  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/boringmetrics/javascript-sdk.git"
+  },
+  "homepage": "https://github.com/boringmetrics/javascript-sdk#readme",
+  "bugs": {
+    "url": "https://github.com/boringmetrics/javascript-sdk/issues"
+  },
+  "keywords": [
+    "analytics",
+    "metrics",
+    "logging",
+    "monitoring",
+    "node"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
   "dependencies": {
-    "@boringmetrics/core": "*"
+    "@boringmetrics/core": "^0.1.0"
   },
   "devDependencies": {
     "@types/node": "^22.7.4",

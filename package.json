@@ -13,7 +13,15 @@
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "types:check": "tsc --noEmit --project tsconfig.json && yarn workspaces run tsc --noEmit",
-    "clean": "yarn workspace @boringmetrics/core clean && yarn workspace @boringmetrics/browser clean && yarn workspace @boringmetrics/node clean && yarn workspace @boringmetrics/react clean"
+    "clean": "yarn workspace @boringmetrics/core clean && yarn workspace @boringmetrics/browser clean && yarn workspace @boringmetrics/node clean && yarn workspace @boringmetrics/react clean",
+    "publish:core": "cd packages/core && npm publish --access public",
+    "publish:browser": "cd packages/browser && npm publish --access public",
+    "publish:node": "cd packages/node && npm publish --access public",
+    "publish:react": "cd packages/react && npm publish --access public",
+    "publish:all": "yarn build && yarn publish:core && yarn publish:browser && yarn publish:node && yarn publish:react",
+    "version:patch": "yarn workspace @boringmetrics/core version patch && yarn workspace @boringmetrics/browser version patch && yarn workspace @boringmetrics/node version patch && yarn workspace @boringmetrics/react version patch",
+    "version:minor": "yarn workspace @boringmetrics/core version minor && yarn workspace @boringmetrics/browser version minor && yarn workspace @boringmetrics/node version minor && yarn workspace @boringmetrics/react version minor",
+    "version:major": "yarn workspace @boringmetrics/core version major && yarn workspace @boringmetrics/browser version major && yarn workspace @boringmetrics/node version major && yarn workspace @boringmetrics/react version major"
   },
   "devDependencies": {
     "prettier": "^3.2.5",
