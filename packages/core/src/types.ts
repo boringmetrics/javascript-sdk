@@ -37,6 +37,8 @@ export interface Log {
   level: LogLevel;
   message: string;
   data?: Record<string, any>;
+  userId?: string;
+  anonymousId?: string;
   sessionId?: string;
   /** ISO8601 date - will be automatically set by the SDK if not provided */
   sentAt?: string;
@@ -52,6 +54,20 @@ export interface LiveUpdate {
   liveId: string;
   value: number;
   operation: LiveUpdateOperation;
+  /** ISO8601 date - will be automatically set by the SDK if not provided */
+  sentAt?: string;
+}
+
+//
+// User
+//
+
+export interface IdentifyUser {
+  userId: string | null;
+  anonymousId?: string | null;
+  name?: string | null;
+  email?: string | null;
+  properties?: Record<string, any> | null;
   /** ISO8601 date - will be automatically set by the SDK if not provided */
   sentAt?: string;
 }
