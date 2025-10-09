@@ -1,6 +1,6 @@
 {
   "name": "@boringmetrics/node",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Node.js SDK for Boring Metrics",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -35,7 +35,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@boringmetrics/core": "^0.1.0"
+    "@boringmetrics/core": "^0.2.0"
   },
   "devDependencies": {
     "@types/node": "^22.7.4",
