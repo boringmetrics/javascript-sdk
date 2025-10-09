@@ -22,6 +22,7 @@ export type ClientConfig = Omit<Partial<Config>, 'token'>;
 export interface Transport {
   sendLogs(logs: Log[], token: string): Promise<void>;
   updateLive(update: LiveUpdate, token: string): Promise<void>;
+  identifyUser(user: UserIdentify, token: string): Promise<void>;
 }
 
 //
@@ -62,7 +63,7 @@ export interface LiveUpdate {
 // User
 //
 
-export interface IdentifyUser {
+export interface UserIdentify {
   userId: string | null;
   anonymousId?: string | null;
   name?: string | null;

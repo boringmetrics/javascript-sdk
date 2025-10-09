@@ -1,7 +1,12 @@
-import { BaseClient, ClientConfig, LiveUpdate, Log } from '@boringmetrics/core';
-import { SESSION_ID_KEY } from './constants';
+import { BaseClient, ClientConfig, LiveUpdate, Log, UserIdentify } from '@boringmetrics/core';
+import {
+  ANONYMOUS_ID_KEY,
+  SESSION_ID_KEY,
+  SESSION_INACTIVITY_TIMEOUT,
+  SESSION_LAST_ACTIVE_AT_KEY,
+} from './constants';
 import { BrowserTransport } from './transport';
-import { generateSessionId } from './utils';
+import { generateId } from './utils';
 
 /**
  * BoringMetrics Browser SDK
@@ -9,6 +14,7 @@ import { generateSessionId } from './utils';
 export class BoringMetrics {
   private static instance: BoringMetrics;
   private client: BaseClient;
+  private anonymousId: string;
   private sessionId: string;
 
   //
@@ -17,6 +23,7 @@ export class BoringMetrics {
   private constructor(token: string, config: ClientConfig = {}) {
     const transport = new BrowserTransport();
     this.client = BaseClient.init(token, config, transport);
+    this.anonymousId = this.getAnonymousId();
     this.sessionId = this.getSessionId();
   }
 
@@ -95,6 +102,17 @@ export class BoringMetrics {
     },
   };
 
+  public static readonly users = {
+    /**
+     * Identify the current user
+     * @param user The user identification info
+     */
+    identify: async (user: UserIdentify): Promise<void> => {
+      const instance = BoringMetrics.getInstance();
+      instance.identifyUser(user);
+    },
+  };
+
   //
   // Utils
   //
@@ -106,13 +124,51 @@ export class BoringMetrics {
     (this.client as any).updateLive(live);
   }
 
+  private identifyUser(user: UserIdentify): void {
+    (this.client as any).identifyUser({
+      ...user,
+      anonymousId: this.anonymousId,
+      sessionId: this.sessionId,
+    });
+  }
+
+  private getAnonymousId(): string {
+    let anonymousId = localStorage.getItem(ANONYMOUS_ID_KEY);
+    if (!anonymousId) {
+      anonymousId = generateId();
+      localStorage.setItem(ANONYMOUS_ID_KEY, anonymousId);
+    }
+
+    return anonymousId;
+  }
+
   private getSessionId(): string {
-    let sessionId = sessionStorage.getItem(SESSION_ID_KEY);
+    let sessionId = localStorage.getItem(SESSION_ID_KEY);
     if (!sessionId) {
-      sessionId = generateSessionId();
-      sessionStorage.setItem(SESSION_ID_KEY, sessionId);
+      sessionId = generateId();
+      localStorage.setItem(SESSION_ID_KEY, sessionId);
+      localStorage.setItem(SESSION_LAST_ACTIVE_AT_KEY, Date.now().toString());
+    } else {
+      const lastActiveAt = this.getSessionLastActiveAt();
+      const now = Date.now();
+      // If last active time is too long ago ago, start a new session
+      if (now - lastActiveAt > SESSION_INACTIVITY_TIMEOUT) {
+        sessionId = generateId();
+        localStorage.setItem(SESSION_ID_KEY, sessionId);
+      }
+
+      localStorage.setItem(SESSION_LAST_ACTIVE_AT_KEY, now.toString());
     }
 
     return sessionId;
+  }
+
+  private getSessionLastActiveAt(): number {
+    const lastActiveAt = localStorage.getItem(SESSION_LAST_ACTIVE_AT_KEY);
+    if (!lastActiveAt) {
+      return lastActiveAt ? parseInt(lastActiveAt, 10) : 0;
+    }
+
+    return 0;
   }
 }

@@ -1,5 +1,5 @@
 import { DEFAULT_CONFIG } from './constants';
-import { ClientConfig, Config, LiveUpdate, Log, Transport } from './types';
+import { ClientConfig, Config, LiveUpdate, Log, Transport, UserIdentify } from './types';
 import { withRetry } from './utils';
 
 export class BaseClient {
@@ -8,9 +8,11 @@ export class BaseClient {
   private config: Config;
   private transport: Transport;
 
+  // Logs state
   private logs: Log[] = [];
-  private lives: LiveUpdate[] = [];
   private logsTimerId: ReturnType<typeof setTimeout> | null = null;
+  // Lives state
+  private lives: LiveUpdate[] = [];
   private livesTimerId: ReturnType<typeof setTimeout> | null = null;
 
   //
@@ -45,12 +47,12 @@ export class BaseClient {
   // Logs
   //
   protected addLog(log: Log): void {
-    const logWithSentAt: Log = {
+    const finalLog: Log = {
       ...log,
       sentAt: log.sentAt || new Date().toISOString(),
     };
 
-    this.logs.push(logWithSentAt);
+    this.logs.push(finalLog);
 
     if (this.logs.length >= this.config.logsMaxBatchSize) {
       this.flushLogs();
@@ -143,5 +145,15 @@ export class BaseClient {
     } catch (error) {
       console.error('[BoringMetrics] Error sending live updates:', error);
     }
+  }
+
+  //
+  // User
+  //
+  protected async identifyUser(user: UserIdentify): Promise<void> {
+    await withRetry(
+      () => this.transport.identifyUser(user, this.config.token),
+      this.config.maxRetryAttempts
+    );
   }
 }

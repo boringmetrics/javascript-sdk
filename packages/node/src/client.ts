@@ -1,4 +1,4 @@
-import { BaseClient, ClientConfig, LiveUpdate, Log } from '@boringmetrics/core';
+import { BaseClient, ClientConfig, LiveUpdate, Log, UserIdentify } from '@boringmetrics/core';
 import { NodeTransport } from './transport';
 
 /**
@@ -13,7 +13,6 @@ export class BoringMetrics {
   //
   private constructor(token: string, config: ClientConfig = {}) {
     const transport = new NodeTransport();
-
     this.client = BaseClient.init(token, config, transport);
   }
 
@@ -82,6 +81,17 @@ export class BoringMetrics {
     },
   };
 
+  public static readonly users = {
+    /**
+     * Identify the current user
+     * @param user The user identification info
+     */
+    identify: (user: UserIdentify): void => {
+      const instance = BoringMetrics.getInstance();
+      instance.identifyUser(user);
+    },
+  };
+
   //
   // Utils
   //
@@ -91,5 +101,9 @@ export class BoringMetrics {
 
   private updateLive(live: LiveUpdate): void {
     (this.client as any).updateLive(live);
+  }
+
+  private identifyUser(user: UserIdentify): void {
+    (this.client as any).identifyUser(user);
   }
 }

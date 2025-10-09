@@ -1,4 +1,4 @@
-export function generateSessionId(): string {
+export function generateId(): string {
   const timestamp = Date.now().toString(36);
   let randomPart = '';
 
