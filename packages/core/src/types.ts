@@ -64,11 +64,11 @@ export interface LiveUpdate {
 //
 
 export interface UserIdentify {
-  userId: string | null;
-  anonymousId?: string | null;
-  name?: string | null;
-  email?: string | null;
-  properties?: Record<string, any> | null;
+  userId?: string;
+  anonymousId?: string;
+  name?: string;
+  email?: string;
+  properties?: Record<string, any>;
   /** ISO8601 date - will be automatically set by the SDK if not provided */
   sentAt?: string;
 }
