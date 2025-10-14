@@ -5,8 +5,9 @@ import {
   SESSION_INACTIVITY_TIMEOUT,
   SESSION_LAST_ACTIVE_AT_KEY,
 } from './constants';
+import { getContext } from './context';
+import { generateId } from './ids';
 import { BrowserTransport } from './transport';
-import { generateId } from './utils';
 
 /**
  * BoringMetrics Browser SDK
@@ -125,7 +126,10 @@ export class BoringMetrics {
   }
 
   private identifyUser(user: UserIdentify): void {
+    const context = getContext();
+
     (this.client as any).identifyUser({
+      ...context,
       ...user,
       anonymousId: this.anonymousId,
       sessionId: this.sessionId,
