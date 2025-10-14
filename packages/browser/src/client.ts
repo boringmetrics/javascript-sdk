@@ -5,7 +5,7 @@ import {
   SESSION_INACTIVITY_TIMEOUT,
   SESSION_LAST_ACTIVE_AT_KEY,
 } from './constants';
-import { getContext } from './context';
+import { getProperties } from './context';
 import { generateId } from './ids';
 import { BrowserTransport } from './transport';
 
@@ -108,7 +108,7 @@ export class BoringMetrics {
      * Identify the current user
      * @param user The user identification info
      */
-    identify: async (user: UserIdentify): Promise<void> => {
+    identify: async (user: Omit<UserIdentify, 'anonymousId'>): Promise<void> => {
       const instance = BoringMetrics.getInstance();
       instance.identifyUser(user);
     },
@@ -118,21 +118,23 @@ export class BoringMetrics {
   // Utils
   //
   private addLog(log: Log): void {
-    (this.client as any).addLog(log);
+    this.client.addLog(log);
   }
 
   private updateLive(live: LiveUpdate): void {
-    (this.client as any).updateLive(live);
+    this.client.updateLive(live);
   }
 
   private identifyUser(user: UserIdentify): void {
-    const context = getContext();
+    const properties = getProperties();
 
-    (this.client as any).identifyUser({
-      ...context,
+    this.client.identifyUser({
       ...user,
       anonymousId: this.anonymousId,
-      sessionId: this.sessionId,
+      properties: {
+        ...properties,
+        ...user.properties,
+      },
     });
   }
 

@@ -55,7 +55,7 @@ export interface NetworkContext {
 /**
  * Get contextual data without external libraries.
  */
-export function getContext(app?: AppContext): FullContext {
+export function getProperties(app?: AppContext): FullContext {
   const ua = navigator.userAgent;
   const { browser, os } = parseUserAgent(ua);
 

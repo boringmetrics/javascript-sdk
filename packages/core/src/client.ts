@@ -46,7 +46,7 @@ export class BaseClient {
   //
   // Logs
   //
-  protected addLog(log: Log): void {
+  public addLog(log: Log): void {
     const finalLog: Log = {
       ...log,
       sentAt: log.sentAt || new Date().toISOString(),
@@ -97,7 +97,7 @@ export class BaseClient {
   //
   // Lives
   //
-  protected updateLive(update: LiveUpdate): void {
+  public updateLive(update: LiveUpdate): void {
     const updateWithSentAt: LiveUpdate = {
       ...update,
       sentAt: update.sentAt || new Date().toISOString(),
@@ -150,9 +150,13 @@ export class BaseClient {
   //
   // User
   //
-  protected async identifyUser(user: UserIdentify): Promise<void> {
+  public async identifyUser(user: UserIdentify): Promise<void> {
     await withRetry(
-      () => this.transport.identifyUser(user, this.config.token),
+      () =>
+        this.transport.identifyUser(
+          { ...user, sentAt: user.sentAt || new Date().toISOString() },
+          this.config.token
+        ),
       this.config.maxRetryAttempts
     );
   }
