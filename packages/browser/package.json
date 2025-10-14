@@ -1,6 +1,6 @@
 {
   "name": "@boringmetrics/browser",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Browser SDK for Boring Metrics",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -35,7 +35,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@boringmetrics/core": "^0.2.2"
+    "@boringmetrics/core": "^0.2.3"
   },
   "devDependencies": {
     "@types/node": "^22.7.4",
