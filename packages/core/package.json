@@ -1,6 +1,6 @@
 {
   "name": "@boringmetrics/core",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Core package for Boring Metrics SDK",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",

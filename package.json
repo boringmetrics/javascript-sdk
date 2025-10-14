@@ -1,7 +1,7 @@
 {
   "name": "javascript-sdk",
   "description": "JavaScript SDKs for the Boring Metrics API",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "repository": "git@github.com:boringmetrics/javascript-sdk.git",
   "author": "Aymeric Chauvin <contact@halftheopposite.dev>",
   "private": true,
