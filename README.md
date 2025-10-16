@@ -37,6 +37,19 @@ yarn add @boringmetrics/react
 // Initialize the SDK
 BoringMetrics.init('YOUR_API_TOKEN');
 
+// Identify the user
+BoringMetrics.users.identify({
+  userId: 'usr_XqtIL23M',
+  name: 'Antoine',
+  email: 'antoine@company.com',
+  properties: {
+    user: {
+      role: 'admin',
+      lastOnline: new Date(),
+    },
+  },
+});
+
 // Send a log
 BoringMetrics.logs.send({
   type: 'log',

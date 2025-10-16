@@ -17,6 +17,7 @@ export class BoringMetrics {
   private client: BaseClient;
   private anonymousId: string;
   private sessionId: string;
+  private userId: string | null;
 
   //
   // Lifecycle
@@ -26,6 +27,7 @@ export class BoringMetrics {
     this.client = BaseClient.init(token, config, transport);
     this.anonymousId = this.getAnonymousId();
     this.sessionId = this.getSessionId();
+    this.userId = null;
   }
 
   private static getInstance(): BoringMetrics {
@@ -63,6 +65,7 @@ export class BoringMetrics {
       const logWithSession: Log = {
         ...log,
         sessionId: log.sessionId || instance.sessionId,
+        userId: log.userId || instance.userId || undefined,
       };
       instance.addLog(logWithSession);
     },
@@ -77,6 +80,7 @@ export class BoringMetrics {
         const logWithSession: Log = {
           ...log,
           sessionId: log.sessionId || instance.sessionId,
+          userId: log.userId || instance.userId || undefined,
         };
         instance.addLog(logWithSession);
       });
@@ -133,9 +137,13 @@ export class BoringMetrics {
       anonymousId: this.anonymousId,
       properties: {
         ...properties,
+        // Let user properties override context properties
         ...user.properties,
       },
     });
+
+    // Update the current userId for logs
+    this.userId = user.userId || null;
   }
 
   private getAnonymousId(): string {
