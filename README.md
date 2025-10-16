@@ -6,9 +6,9 @@ This is a JavaScript SDK for the Boring Metrics API. It provides a simple and ef
 
 The SDK is available for the following platforms:
 
+- [`@boringmetrics/core`](https://github.com/boringmetrics/javascript-sdk/tree/main/packages/core): Core library used by other packages below
 - [`@boringmetrics/browser`](https://github.com/boringmetrics/javascript-sdk/tree/main/packages/browser): SDK for Browsers
 - [`@boringmetrics/node`](https://github.com/boringmetrics/javascript-sdk/tree/main/packages/node): SDK for Node
-- [`@boringmetrics/react`](https://github.com/boringmetrics/javascript-sdk/tree/main/packages/react): SDK for React applications
 
 ## Installation
 
@@ -22,11 +22,6 @@ yarn add @boringmetrics/browser
 npm install @boringmetrics/node
 # or...
 yarn add @boringmetrics/node
-
-# For React usage
-npm install @boringmetrics/react
-# or...
-yarn add @boringmetrics/react
 ```
 
 ## Usage
