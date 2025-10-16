@@ -1,6 +1,6 @@
 {
   "name": "@boringmetrics/node",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Node.js SDK for Boring Metrics",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
