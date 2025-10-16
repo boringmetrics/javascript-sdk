@@ -1,6 +1,6 @@
 {
   "name": "@boringmetrics/react",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "React SDK for Boring Metrics",
   "main": "dist/index.js",
   "module": "dist/index.esm.js",
@@ -36,7 +36,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@boringmetrics/core": "^0.2.3"
+    "@boringmetrics/core": "^0.2.4"
   },
   "peerDependencies": {
     "react": ">=16.8.0"
