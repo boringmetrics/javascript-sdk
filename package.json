@@ -1,7 +1,7 @@
 {
   "name": "javascript-sdk",
   "description": "JavaScript SDKs for the Boring Metrics API",
-  "version": "0.2.4",
+  "version": "0.3.0",
   "repository": "git@github.com:boringmetrics/javascript-sdk.git",
   "author": "Aymeric Chauvin <contact@halftheopposite.dev>",
   "private": true,
@@ -18,9 +18,9 @@
     "publish:browser": "cd packages/browser && npm publish --access public",
     "publish:node": "cd packages/node && npm publish --access public",
     "publish:all": "yarn build && yarn publish:core && yarn publish:browser && yarn publish:node",
-    "version:patch": "yarn workspace @boringmetrics/core version patch && yarn workspace @boringmetrics/browser version patch && yarn workspace @boringmetrics/node version patch && yarn workspace version patch",
-    "version:minor": "yarn workspace @boringmetrics/core version minor && yarn workspace @boringmetrics/browser version minor && yarn workspace @boringmetrics/node version minor && yarn workspace version minor",
-    "version:major": "yarn workspace @boringmetrics/core version major && yarn workspace @boringmetrics/browser version major && yarn workspace @boringmetrics/node version major && yarn workspace version major"
+    "version:patch": "node scripts/version.js patch",
+    "version:minor": "node scripts/version.js minor",
+    "version:major": "node scripts/version.js major"
   },
   "devDependencies": {
     "prettier": "^3.2.5",
