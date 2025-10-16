@@ -20,8 +20,7 @@
     "publish:all": "yarn build && yarn publish:core && yarn publish:browser && yarn publish:node",
     "version:patch": "node scripts/version.js patch",
     "version:minor": "node scripts/version.js minor",
-    "version:major": "node scripts/version.js major",
-    "version": "node scripts/version.js"
+    "version:major": "node scripts/version.js major"
   },
   "devDependencies": {
     "prettier": "^3.2.5",
